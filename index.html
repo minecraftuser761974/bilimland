@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BilimAL — Электронды мектеп журналы</title>
+    <title>BilimAL — Электронды журнал және білім платформасы</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts: Inter -->
@@ -13,16 +13,13 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Win 10 Dots Animation */
         @keyframes winDots {
             0% { transform: translateX(0); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
             100% { transform: translateX(35px); opacity: 0; }
         }
-        .win-dot {
-            animation: winDots 1.4s infinite ease-in-out;
-        }
+        .win-dot { animation: winDots 1.4s infinite ease-in-out; }
         .win-dot:nth-child(2) { animation-delay: 0.2s; }
         .win-dot:nth-child(3) { animation-delay: 0.4s; }
         .win-dot:nth-child(4) { animation-delay: 0.6s; }
@@ -46,17 +43,15 @@
         </div>
     </div>
 
-    <!-- 2. BILIMPUSH NOTIFICATION CONTAINER -->
+    <!-- 2. BILIMPUSH TOAST CONTAINER -->
     <div id="push-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-3 pointer-events-none"></div>
 
-    <!-- 3. MAIN APP CONTAINER -->
-    <div id="app" class="flex-1 flex flex-col">
-        <!-- RENDERED DYNAMICALLY BY JS -->
-    </div>
+    <!-- 3. MAIN CONTAINER -->
+    <div id="app" class="flex-1 flex flex-col"></div>
 
-    <!-- FIREBASE & APP LOGIC SCRIPT -->
+    <!-- SCRIPT LOGIC -->
     <script>
-        // --- FIREBASE CONFIGURATION (Placeholder - replace with real project config) ---
+        // Firebase Configuration (Real-time Cloud Database)
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "bilimal-app.firebaseapp.com",
@@ -67,13 +62,12 @@
             appId: "1:1234:web:abcd"
         };
         
-        // Initialize Firebase
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.database();
 
-        // --- BILIMPUSH NOTIFICATION SYSTEM ---
+        // BilimPush Notification System (Кіру, сақтау, жариялау, өзгерту)
         function showPush(message, type = 'success') {
             const container = document.getElementById('push-container');
             const toast = document.createElement('div');
@@ -93,36 +87,32 @@
             `;
 
             container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.remove('translate-y-[-20px]', 'opacity-0');
-            }, 10);
-
+            setTimeout(() => toast.classList.remove('translate-y-[-20px]', 'opacity-0'), 10);
             setTimeout(() => {
                 toast.classList.add('translate-y-[-20px]', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 4500);
         }
 
-        // --- APP STATE ---
         let currentUser = null;
-        let currentRole = null; // 'admin', 'teacher', 'student', 'parent'
 
-        // --- BOOT SCREEN REMOVAL ---
+        // Boot screen finish
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const boot = document.getElementById('boot-screen');
-                boot.classList.add('opacity-0');
-                setTimeout(() => boot.remove(), 700);
+                if (boot) {
+                    boot.classList.add('opacity-0');
+                    setTimeout(() => boot.remove(), 700);
+                }
                 renderLanding();
             }, 4000);
         });
 
-        // --- RENDER LANDING & LOGIN ---
+        // Landing & Pure Login View
         function renderLanding() {
             const app = document.getElementById('app');
             app.innerHTML = `
                 <div class="flex-1 flex flex-col justify-between bg-slate-900">
-                    <!-- Top Navbar -->
                     <header class="border-b border-slate-800 bg-slate-950/50 backdrop-blur sticky top-0 z-40 px-8 py-4 flex justify-between items-center">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-lg">B</div>
@@ -131,49 +121,45 @@
                         <button onclick="scrollToLogin()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2 rounded-lg text-sm font-medium transition">Жүйеге кіру</button>
                     </header>
 
-                    <!-- Hero Section -->
-                    <section class="max-w-6xl mx-auto px-6 py-20 text-center">
-                        <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">Білім берудің кәсіби платформасы</h1>
-                        <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-10">Мектептерге арналған бірыңғай цифрлық жүйе. Оқу үдерісін, бағалауды, үй тапсырмалары мен аналитиканы бұлттық жүйеде қауіпсіз басқарыңыз.</p>
-                        <div class="flex justify-center gap-4">
-                            <button onclick="scrollToLogin()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-8 py-3 rounded-xl transition shadow-lg shadow-indigo-600/30">Журналға кіру</button>
-                        </div>
+                    <section class="max-w-6xl mx-auto px-6 py-16 text-center">
+                        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">BilimAL — Кәсіби білім беру платформасы</h1>
+                        <p class="text-slate-400 text-base max-w-2xl mx-auto mb-10">Электронды журнал, сыныптарды басқару, үй тапсырмалары мен бұлттық аналитика жүйесі.</p>
                     </section>
 
-                    <!-- Informative Blocks (Landing details) -->
-                    <section class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Informative Blocks -->
+                    <section class="max-w-6xl mx-auto px-6 pb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-slate-950 border border-slate-800/80 p-6 rounded-2xl">
                             <div class="w-10 h-10 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold mb-4">01</div>
                             <h3 class="text-lg font-semibold text-white mb-2">BilimAL деген не?</h3>
-                            <p class="text-sm text-slate-400">Мектептерге арналған заманауи, қатал әрі сенімді электронды журнал және басқару жүйесі.</p>
+                            <p class="text-sm text-slate-400">Мектептерге арналған толықтай бұлттық (Firebase) негізде жұмыс істейтін заманауи журнал.</p>
                         </div>
                         <div class="bg-slate-950 border border-slate-800/80 p-6 rounded-2xl">
                             <div class="w-10 h-10 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold mb-4">02</div>
                             <h3 class="text-lg font-semibold text-white mb-2">Мұғалім мүмкіндігі</h3>
-                            <p class="text-sm text-slate-400">BilimTask арқылы үй тапсырмасын беру, CheckTask арқылы тексеру және 10-балдық шкаламен бағалау.</p>
+                            <p class="text-sm text-slate-400">BilimTask пен CheckTask арқылы үй тапсырмасын беру, файл қабылдау және 10 балдық бағалау.</p>
                         </div>
                         <div class="bg-slate-950 border border-slate-800/80 p-6 rounded-2xl">
                             <div class="w-10 h-10 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold mb-4">03</div>
                             <h3 class="text-lg font-semibold text-white mb-2">Оқушы & Ата-ана</h3>
-                            <p class="text-sm text-slate-400">Үй тапсырмасына файл тіркеп жіберу, мұғаліммен Notify арқылы байланысу және бағаларды қадағалау.</p>
+                            <p class="text-sm text-slate-400">Үй жұмысына файл тіркеп жіберу, Notify модулі арқылы мұғаліммен жеке хат алмасу.</p>
                         </div>
                         <div class="bg-slate-950 border border-slate-800/80 p-6 rounded-2xl">
                             <div class="w-10 h-10 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold mb-4">04</div>
                             <h3 class="text-lg font-semibold text-white mb-2">Бас әкімші</h3>
-                            <p class="text-sm text-slate-400">BilimAnalytics арқылы мектеп сыныптары мен сынып жетекшілерінің ортақ білім көрсеткішін бақылау.</p>
+                            <p class="text-sm text-slate-400">BilimAnalytics арқылы сыныптар мен ортақ білім көрсеткішін қадағалау.</p>
                         </div>
                     </section>
 
-                    <!-- Clean Login Form Section -->
-                    <section id="login-section" class="max-w-md mx-auto w-full px-6 py-16">
+                    <!-- Pure Login Form (No dropdowns, no official state fluff) -->
+                    <section id="login-section" class="max-w-md mx-auto w-full px-6 py-12">
                         <div class="bg-slate-950 border border-slate-800 p-8 rounded-2xl shadow-2xl">
                             <h2 class="text-2xl font-bold text-white mb-2 text-center">Жүйеге кіру</h2>
-                            <p class="text-xs text-slate-400 text-center mb-6">Тіркелгі деректеріңізді енгізіңіз</p>
+                            <p class="text-xs text-slate-400 text-center mb-6">Логин мен пароліңізді енгізіңіз</p>
                             
                             <form onsubmit="handleLogin(event)" class="space-y-4">
                                 <div>
-                                    <label class="block text-xs font-medium text-slate-400 mb-1">Логин / ИIN</label>
-                                    <input type="text" id="login-username" required class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500" placeholder="Логініңізді енгізіңіз">
+                                    <label class="block text-xs font-medium text-slate-400 mb-1">Логин</label>
+                                    <input type="text" id="login-username" required class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500" placeholder="admin, teacher, student, parent">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-medium text-slate-400 mb-1">Пароль</label>
@@ -184,7 +170,6 @@
                         </div>
                     </section>
 
-                    <!-- Footer -->
                     <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
                         &copy; 2026 BilimAL. Барлық құқықтар қорғалған.
                     </footer>
@@ -196,13 +181,12 @@
             document.getElementById('login-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- LOGIN AUTHENTICATION LOGIC ---
+        // Authentication Handler with BilimPush
         function handleLogin(e) {
             e.preventDefault();
             const user = document.getElementById('login-username').value.trim();
             const pass = document.getElementById('login-password').value.trim();
 
-            // Simple demo router based on username prefix or demo credentials
             if (user === 'admin' && pass === 'admin') {
                 currentUser = { name: 'Бас Әкімші', role: 'admin' };
                 showPush('Сәтті! Қош келдіңіз, Әкімші', 'success');
@@ -224,23 +208,18 @@
             }
         }
 
-        // --- DASHBOARD ROUTER ---
+        // Dashboard Router
         function renderDashboard(role) {
-            currentRole = role;
             const app = document.getElementById('app');
-            
             app.innerHTML = `
                 <div class="flex h-screen bg-slate-900 overflow-hidden">
-                    <!-- Sidebar -->
                     <aside class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between">
                         <div>
                             <div class="p-6 border-b border-slate-800 flex items-center space-x-3">
                                 <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white">B</div>
                                 <span class="text-lg font-bold text-white tracking-tight">BilimAL</span>
                             </div>
-                            <nav class="p-4 space-y-1" id="sidebar-nav">
-                                <!-- Nav items injected dynamically -->
-                            </nav>
+                            <nav class="p-4 space-y-1" id="sidebar-nav"></nav>
                         </div>
                         <div class="p-4 border-t border-slate-800">
                             <div class="flex items-center justify-between mb-3">
@@ -250,20 +229,14 @@
                             <button onclick="logout()" class="w-full bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs py-2 rounded-lg border border-slate-800 transition">Шығу</button>
                         </div>
                     </aside>
-
-                    <!-- Main Content Area -->
-                    <main class="flex-1 flex flex-col overflow-y-auto" id="main-content">
-                        <!-- Dynamic Module Content -->
-                    </main>
+                    <main class="flex-1 flex flex-col overflow-y-auto" id="main-content"></main>
                 </div>
             `;
-
             setupSidebarNav(role);
         }
 
         function logout() {
             currentUser = null;
-            currentRole = null;
             showPush('Жүйеден сәтті шықтыңыз', 'success');
             renderLanding();
         }
@@ -286,11 +259,11 @@
             } else if (role === 'student') {
                 links = [
                     { name: 'BilimTask (Үй жұмысы)', action: 'renderStudentTask' },
-                    { name: 'Мұғаліммен байланыс (Notify)', action: 'renderStudentNotify' }
+                    { name: 'Notify (Мұғалімге жазу)', action: 'renderStudentNotify' }
                 ];
             } else if (role === 'parent') {
                 links = [
-                    { name: 'BilimTask (Бала тапсырмалары)', action: 'renderParentTask' }
+                    { name: 'BilimTask (Тапсырмалар)', action: 'renderParentTask' }
                 ];
             }
 
@@ -300,60 +273,28 @@
                 </button>
             `).join('');
 
-            // Trigger first link by default
-            if (links.length > 0) {
-                window[links[0].action]();
-            }
+            if (links.length > 0) window[links[0].action]();
         }
 
-        // --- ADMIN MODULES ---
+        // Admin Modules
         function renderAdminAnalytics() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">BilimAnalytics — Мектеп аналитикасы</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">BilimAnalytics — Мектеп аналитикасы</h1></header>
                 <div class="p-8 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
-                            <p class="text-xs text-slate-400 mb-1">Барлық тіркелген сыныптар</p>
+                            <p class="text-xs text-slate-400 mb-1">Барлық сыныптар</p>
                             <h3 class="text-3xl font-bold text-white">24</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
                             <p class="text-xs text-slate-400 mb-1">Орташа білім көрсеткіші</p>
-                            <h3 class="text-3xl font-bold text-emerald-400">88.4%</h3>
+                            <h3 class="text-3xl font-bold text-emerald-400">89.1%</h3>
                         </div>
                         <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl">
                             <p class="text-xs text-slate-400 mb-1">Белсенді оқушылар</p>
-                            <h3 class="text-3xl font-bold text-indigo-400">640</h3>
+                            <h3 class="text-3xl font-bold text-indigo-400">650</h3>
                         </div>
-                    </div>
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                        <h3 class="text-base font-semibold text-white mb-4">Сыныптар мен сынып жетекшілерінің ортақ көрсеткіші</h3>
-                        <table class="w-full text-left text-sm text-slate-300">
-                            <thead class="bg-slate-900 text-xs uppercase text-slate-400 border-b border-slate-800">
-                                <tr>
-                                    <th class="p-3">Сынып</th>
-                                    <th class="p-3">Сынып жетекшісі</th>
-                                    <th class="p-3">Оқушы саны</th>
-                                    <th class="p-3">Ортақ білім пайызы</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800/50">
-                                <tr>
-                                    <td class="p-3 font-medium text-white">10 «А»</td>
-                                    <td class="p-3">Ақмарал Жұмабаева</td>
-                                    <td class="p-3">25</td>
-                                    <td class="p-3 text-emerald-400 font-semibold">91.2%</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-3 font-medium text-white">11 «Б»</td>
-                                    <td class="p-3">Ерлан Смайылов</td>
-                                    <td class="p-3">22</td>
-                                    <td class="p-3 text-emerald-400 font-semibold">86.5%</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             `;
@@ -362,93 +303,56 @@
         function renderAdminSubscription() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">BilimSubscription — Мерзімді бақылау</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">BilimSubscription — Мерзімді бақылау</h1></header>
                 <div class="p-8 max-w-xl">
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
-                        <h3 class="text-base font-semibold text-white">Жүйелік лицензия мерзімі</h3>
-                        <p class="text-xs text-slate-400">Мерзім аяқталған соң қол қою батырмалары автоматты түрде жабылып, архивтеледі.</p>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Мерзім соңы (YYYY/MM/DD-HH:mm)</label>
-                            <input type="text" value="2026/12/31-23:59" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <button onclick="showPush('Мерзім сәтті өзгертілді', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Сақтау</button>
+                        <h3 class="text-base font-semibold text-white">Лицензия мерзімі (YYYY/MM/DD-HH:mm)</h3>
+                        <input type="text" value="2026/12/31-23:59" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                        <button onclick="showPush('Сәтті! Мерзім сақталды', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Сақтау</button>
                     </div>
                 </div>
             `;
         }
 
-        // --- TEACHER MODULES ---
+        // Teacher Modules
         function renderTeacherTask() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">BilimTask — Үй тапсырмасын беру</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">BilimTask — Үй тапсырмасын беру</h1></header>
                 <div class="p-8 max-w-xl">
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Сыныпты таңдаңыз</label>
-                            <select class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                                <option>10 «А»</option>
-                                <option>11 «Б»</option>
-                            </select>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Сынып</label>
+                            <select class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white"><option>10 «А»</option></select>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Пәнді таңдаңыз</label>
-                            <select class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                                <option>Информатика</option>
-                                <option>Математика</option>
-                            </select>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Тапсырма тақырыбы</label>
+                            <input type="text" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white" placeholder="Тақырыпты жазыңыз">
                         </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Тапсырма атауы</label>
-                            <input type="text" id="task-title" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white" placeholder="Тақырыпты жазыңыз">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Сипаты / Талаптары</label>
-                            <textarea id="task-desc" rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white" placeholder="Тапсырма сипаты..."></textarea>
-                        </div>
-                        <button onclick="publishTask()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Жариялау</button>
+                        <button onclick="showPush('Сәтті! Тапсырма жарияланды', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Жариялау</button>
                     </div>
                 </div>
             `;
-        }
-
-        function publishTask() {
-            showPush('Сәтті! Тапсырма жарияланды', 'success');
         }
 
         function renderTeacherCheckTask() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">CheckTask — Үй тапсырмаларын тексеру</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">CheckTask — Тапсырмаларды тексеру</h1></header>
                 <div class="p-8">
                     <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
                         <table class="w-full text-left text-sm text-slate-300">
                             <thead class="bg-slate-900 text-xs uppercase text-slate-400 border-b border-slate-800">
-                                <tr>
-                                    <th class="p-3">Оқушы</th>
-                                    <th class="p-3">Сынып</th>
-                                    <th class="p-3">Пән / Тапсырма</th>
-                                    <th class="p-3">Файл</th>
-                                    <th class="p-3">Бағалау (10 балл)</th>
-                                </tr>
+                                <tr><th class="p-3">Оқушы</th><th class="p-3">Сынып</th><th class="p-3">Файл</th><th class="p-3">Баға (10 балл)</th></tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-800/50">
+                            <tbody>
                                 <tr>
-                                    <td class="p-3 font-medium text-white">Әлішер Оспанов</td>
+                                    <td class="p-3 text-white">Әлішер Оспанов</td>
                                     <td class="p-3">10 «А»</td>
-                                    <td class="p-3">Информатика: Практика №1</td>
-                                    <td class="p-3"><a href="#" class="text-indigo-400 underline">solution.zip</a></td>
-                                    <td class="p-3">
-                                        <div class="flex items-center space-x-2">
-                                            <input type="number" min="1" max="10" value="9" class="w-16 bg-slate-900 border border-slate-800 rounded px-2 py-1 text-white text-center">
-                                            <button onclick="showPush('Сәтті! Баға сақталды', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded">Қою</button>
-                                        </div>
+                                    <td class="p-3"><a href="#" class="text-indigo-400 underline">task.zip</a></td>
+                                    <td class="p-3 flex items-center space-x-2">
+                                        <input type="number" min="1" max="10" value="10" class="w-16 bg-slate-900 border border-slate-800 rounded px-2 py-1 text-center text-white">
+                                        <button onclick="showPush('Сәтті! Баға сақталды', 'success')" class="bg-indigo-600 px-3 py-1.5 rounded text-xs text-white">Қою</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -461,17 +365,15 @@
         function renderTeacherNotify() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">Notify — Оқушы хабарламалары</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">Notify — Хабарламалар</h1></header>
                 <div class="p-8 max-w-xl">
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
                         <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                            <p class="text-xs text-indigo-400 font-semibold mb-1">Оқушы: Әлішер Оспанов (10 «А»)</p>
-                            <p class="text-sm text-slate-300 mb-3">Мұғалім, үй тапсырмасы бойынша сұрағым бар еді...</p>
+                            <p class="text-xs text-indigo-400 font-semibold mb-1">Оқушы: Әлішер (10 «А»)</p>
+                            <p class="text-sm text-slate-300 mb-3">Сұрағым бар еді...</p>
                             <div class="flex space-x-2">
                                 <input type="text" placeholder="Жауап жазу..." class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                                <button onclick="showPush('Сәтті! Жауап жіберілді', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2 rounded-lg">Жіберу</button>
+                                <button onclick="showPush('Сәтті! Жауап жіберілді', 'success')" class="bg-indigo-600 px-4 py-2 rounded-lg text-xs text-white">Жіберу</button>
                             </div>
                         </div>
                     </div>
@@ -479,28 +381,16 @@
             `;
         }
 
-        // --- STUDENT MODULES ---
+        // Student Modules
         function renderStudentTask() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">BilimTask — Үй тапсырмасын орындау</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">BilimTask — Үй жұмысын тапсыру</h1></header>
                 <div class="p-8 max-w-xl">
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
-                        <h3 class="text-base font-semibold text-white">Информатика: Практика №1</h3>
-                        <p class="text-xs text-slate-400">Талап: Python тілінде бағдарлама құру.</p>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Мұғалімді таңдаңыз</label>
-                            <select class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                                <option>Мұғалім А.</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Файлды тіркеу</label>
-                            <input type="file" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-indigo-600 file:text-white hover:file:bg-indigo-500">
-                        </div>
-                        <button onclick="showPush('Сәтті! Тапсырма жіберілді', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Жіберу</button>
+                        <h3 class="text-base font-semibold text-white">Практикалық жұмыс №1</h3>
+                        <input type="file" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:text-white">
+                        <button onclick="showPush('Сәтті! Тапсырма жіберілді', 'success')" class="bg-indigo-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg">Жіберу</button>
                     </div>
                 </div>
             `;
@@ -509,39 +399,22 @@
         function renderStudentNotify() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">Мұғаліммен байланыс (Notify)</h1>
-                </header>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">Notify — Мұғалімге хат жазу</h1></header>
                 <div class="p-8 max-w-xl">
                     <div class="bg-slate-950 border border-slate-800 p-6 rounded-2xl space-y-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Мұғалімді таңдаңыз</label>
-                            <select class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white">
-                                <option>Мұғалім А. (Информатика)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Хабарлама</label>
-                            <textarea rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-white" placeholder="Хатты жазыңыз..."></textarea>
-                        </div>
-                        <button onclick="showPush('Сәтті! Хабарлама жіберілді', 'success')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition">Жіберу</button>
+                        <textarea rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white" placeholder="Хабарлама..."></textarea>
+                        <button onclick="showPush('Сәтті! Хабарлама жіберілді', 'success')" class="bg-indigo-600 text-white text-sm font-medium px-5 py-2.5 rounded-lg">Жіберу</button>
                     </div>
                 </div>
             `;
         }
 
-        // --- PARENT MODULES ---
+        // Parent Modules
         function renderParentTask() {
             const main = document.getElementById('main-content');
             main.innerHTML = `
-                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4 flex justify-between items-center">
-                    <h1 class="text-lg font-bold text-white">BilimTask — Баламның үй тапсырмалары</h1>
-                </header>
-                <div class="p-8">
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6">
-                        <p class="text-sm text-slate-300">Балаңыздың барлық берілген үй тапсырмалары мен орындалу күйі осында көрсетіледі.</p>
-                    </div>
-                </div>
+                <header class="bg-slate-950 border-b border-slate-800 px-8 py-4"><h1 class="text-lg font-bold text-white">BilimTask — Баланың тапсырмалары</h1></header>
+                <div class="p-8"><div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 text-sm text-slate-300">Балаңыздың тапсырмалары осында көрінеді.</div></div>
             `;
         }
     </script>
