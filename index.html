@@ -91,35 +91,62 @@
     </header>
 
     <div class="flex-1 max-w-[1400px] w-full mx-auto p-3 md:p-4 flex flex-col">
-        <div id="login-section" class="w-full max-w-md mx-auto my-auto bg-white p-8 rounded-xl shadow-xl border border-slate-200 animate-fade">
-            <div class="text-center mb-6">
-                <h2 id="login-title" class="text-lg font-extrabold text-slate-900">Жүйеге кіру</h2>
-                <p id="login-subtitle" class="text-slate-500 text-xs mt-1">BilimAL электронды журналы</p>
-            </div>
-            <form onsubmit="handleLogin(event)" class="space-y-4">
-                <div>
-                    <label id="lbl-user" class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Логин</label>
-                    <input type="text" id="login-username" class="w-full border border-slate-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-600" placeholder="Логиніңіз">
+        <!-- Login Section & Informative Blocks -->
+        <div id="login-section" class="w-full max-w-4xl mx-auto my-auto space-y-6 animate-fade">
+            <div class="bg-white p-8 rounded-xl shadow-xl border border-slate-200 max-w-md mx-auto">
+                <div class="text-center mb-6">
+                    <h2 id="login-title" class="text-lg font-extrabold text-slate-900">Жүйеге кіру</h2>
+                    <p id="login-subtitle" class="text-slate-500 text-xs mt-1">BilimAL электронды журналы</p>
                 </div>
-                <div>
-                    <label id="lbl-pass" class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Пароль</label>
-                    <input type="password" id="login-password" class="w-full border border-slate-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-600" placeholder="••••••••">
-                </div>
-                <div id="login-error" class="hidden text-red-600 text-xs text-center font-bold bg-red-50 p-2 rounded border border-red-200"></div>
-                <button type="submit" id="btn-login" class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded font-bold text-xs shadow transition-all">Кіру</button>
-                
-                <div class="pt-1">
-                    <button type="button" onclick="handleBiometricLoginClick()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-bold text-xs flex items-center justify-center gap-2 border border-slate-300 transition-all shadow-xs">
-                        <span>🔒</span> Touch ID / Face ID арқылы кіру
-                    </button>
-                </div>
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label id="lbl-user" class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Логин</label>
+                        <input type="text" id="login-username" class="w-full border border-slate-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-600" placeholder="Логиніңіз">
+                    </div>
+                    <div>
+                        <label id="lbl-pass" class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Пароль</label>
+                        <input type="password" id="login-password" class="w-full border border-slate-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-blue-600" placeholder="••••••••">
+                    </div>
+                    <div id="login-error" class="hidden text-red-600 text-xs text-center font-bold bg-red-50 p-2 rounded border border-red-200"></div>
+                    <button type="submit" id="btn-login" class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white rounded font-bold text-xs shadow transition-all">Кіру</button>
+                    
+                    <div class="pt-1">
+                        <button type="button" onclick="handleBiometricLoginClick()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-bold text-xs flex items-center justify-center gap-2 border border-slate-300 transition-all shadow-xs">
+                            <span>🔒</span> Touch ID / Face ID арқылы кіру
+                        </button>
+                    </div>
 
-                <div class="pt-1">
-                    <button type="button" onclick="openBilimWebQRModal()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-xs">
-                        <span>📱</span> BilimWeb (QR арқылы кіру)
-                    </button>
+                    <div class="pt-1">
+                        <button type="button" onclick="openBilimWebQRModal()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-xs">
+                            <span>📱</span> BilimWeb (QR арқылы кіру)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Informative Blocks Below Login -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="w-8 h-8 rounded bg-blue-50 text-blue-700 flex items-center justify-center font-black text-xs">01</div>
+                    <h3 class="text-xs font-extrabold text-slate-900 uppercase">BilimAL деген не?</h3>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектептерге арналған заманауи, қатал әрі сенімді электронды журнал, бағалау, қатысу және бұлттық синхронизация платформасы[span_0](start_span)[span_0](end_span).</p>
                 </div>
-            </form>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="w-8 h-8 rounded bg-indigo-50 text-indigo-700 flex items-center justify-center font-black text-xs">02</div>
+                    <h3 class="text-xs font-extrabold text-slate-900 uppercase">Оқушы және ата-ана мүмкіндігі</h3>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Бағаларды, қатысуды бақылау, BilimTest тапсыру, BilimID картасын қолдану және табельдерге қол қою[span_1](start_span)[span_1](end_span).</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="w-8 h-8 rounded bg-emerald-50 text-emerald-700 flex items-center justify-center font-black text-xs">03</div>
+                    <h3 class="text-xs font-extrabold text-slate-900 uppercase">Мұғалім мүмкіндігі</h3>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Электронды журнал толтыру, сынып ашу (DCA код), BilimTest құру, CheckID камера арқылы тексеру және қатысуды бақылау[span_2](start_span)[span_2](end_span).</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="w-8 h-8 rounded bg-purple-50 text-purple-700 flex items-center justify-center font-black text-xs">04</div>
+                    <h3 class="text-xs font-extrabold text-slate-900 uppercase">Бас әкімші мүмкіндігі</h3>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектеп мониторингі, санкциялар мен модерация, BilimSubscription мерзімдерін бекіту және Admin-GPT аналитикасы[span_3](start_span)[span_3](end_span).</p>
+                </div>
+            </div>
         </div>
 
         <div id="dashboard-section" class="hidden grid grid-cols-1 md:grid-cols-5 gap-4 w-full items-start animate-fade">
@@ -204,8 +231,8 @@
     </div>
 
     <footer class="bg-white py-3 px-6 border-t border-slate-200 text-[11px] text-slate-500 flex justify-between items-center">
-        <span id="footer-text" class="font-bold text-slate-700">BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған.</span>
-        <span class="text-emerald-600 font-bold flex items-center gap-1">● Бұлттық база қосылған</span>
+        <span id="footer-text" class="font-bold text-slate-700">BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_4](start_span)[span_4](end_span).</span>
+        <span class="text-emerald-600 font-bold flex items-center gap-1">● Бұлттық база қосылған[span_5](start_span)[span_5](end_span)</span>
     </footer>
 
     <script>
@@ -278,7 +305,7 @@
 
         const translations = {
             kk: {
-                subtitle: "Бірыңғай мектеп журналы және платформа",
+                subtitle: "Бірыңғай мектеп журналы және платформа[span_6](start_span)[span_6](end_span)",
                 loginTitle: "Жүйеге кіру",
                 loginSub: "BilimAL электронды журналы",
                 userLbl: "Логин",
@@ -286,7 +313,7 @@
                 loginBtn: "Кіру",
                 logoutBtn: "Шығу",
                 menuTitle: "Басқару панелі",
-                footer: "BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған.",
+                footer: "BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_7](start_span)[span_7](end_span).",
                 adminMon: "📊 Мониторинг",
                 adminSanc: "🛡️ Moderations & Sanctions",
                 adminSched: "📅 Сабақ кестесі",
@@ -323,7 +350,7 @@
                 sessionsTab: "💻 Белсенді сеанстар"
             },
             ru: {
-                subtitle: "Единая школьная система и платформа",
+                subtitle: "Единая школьная система и платформа[span_8](start_span)[span_8](end_span)",
                 loginTitle: "Вход в систему",
                 loginSub: "Электронный журнал BilimAL",
                 userLbl: "Логин",
@@ -331,7 +358,7 @@
                 loginBtn: "Войти",
                 logoutBtn: "Выйти",
                 menuTitle: "Панель управления",
-                footer: "BilimAL Enterprise Cloud © 2026. Все права защищены.",
+                footer: "BilimAL Enterprise Cloud © 2026. Все права защищены[span_9](start_span)[span_9](end_span).",
                 adminMon: "📊 Мониторинг",
                 adminSanc: "🛡️ Модерация и санкции",
                 adminSched: "📅 Расписание",
@@ -368,7 +395,7 @@
                 sessionsTab: "💻 Активные сеансы"
             },
             en: {
-                subtitle: "Unified School System and Platform",
+                subtitle: "Unified School System and Platform[span_10](start_span)[span_10](end_span)",
                 loginTitle: "Sign In",
                 loginSub: "BilimAL Electronic Journal",
                 userLbl: "Username",
@@ -376,7 +403,7 @@
                 loginBtn: "Login",
                 logoutBtn: "Logout",
                 menuTitle: "Control Panel",
-                footer: "BilimAL Enterprise Cloud © 2026. All rights reserved.",
+                footer: "BilimAL Enterprise Cloud © 2026. All rights reserved[span_11](start_span)[span_11](end_span).",
                 adminMon: "📊 Monitoring",
                 adminSanc: "🛡️ Moderations & Sanctions",
                 adminSched: "📅 Schedule",
