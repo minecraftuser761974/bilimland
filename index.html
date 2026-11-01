@@ -43,9 +43,39 @@
         }
 
         .id-card-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); }
+
+        /* iPhone Style Notification Container */
+        #ios-toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-30px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999999;
+            width: 90%;
+            max-width: 400px;
+        }
+        #ios-toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="text-slate-800 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+    <!-- iPhone Style Push Notification Element -->
+    <div id="ios-toast-container">
+        <div id="ios-toast-box" class="flex items-center gap-3 p-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border text-white text-xs font-semibold">
+            <div id="ios-toast-icon" class="w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm shrink-0"></div>
+            <div class="flex-1">
+                <div id="ios-toast-title" class="font-extrabold tracking-tight"></div>
+                <div id="ios-toast-desc" class="text-[11px] text-slate-100 font-normal mt-0.5 leading-snug"></div>
+            </div>
+        </div>
+    </div>
 
     <div id="action-spinner" class="win10-spinner-overlay hidden animate-fade">
         <div class="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin mb-3"></div>
@@ -71,7 +101,7 @@
             <div class="w-9 h-9 rounded bg-white text-blue-900 flex items-center justify-center font-black text-sm shadow">BA</div>
             <div>
                 <h1 class="text-xs font-extrabold tracking-wider">BilimAL <span class="text-[9px] px-1.5 py-0.5 bg-blue-600 text-white rounded font-bold ml-1">Enterprise</span></h1>
-                <p id="header-subtitle" class="text-[9px] text-slate-300">Бірыңғай мектеп журналы және платформа</p>
+                <p id="header-subtitle" class="text-[9px] text-slate-300">Бірыңғай мектеп журналы және платформа[span_0](start_span)[span_0](end_span)</p>
             </div>
         </div>
         <div class="flex items-center space-x-3">
@@ -129,22 +159,22 @@
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
                     <div class="w-8 h-8 rounded bg-blue-50 text-blue-700 flex items-center justify-center font-black text-xs">01</div>
                     <h3 class="text-xs font-extrabold text-slate-900 uppercase">BilimAL деген не?</h3>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектептерге арналған заманауи, қатал әрі сенімді электронды журнал, бағалау, қатысу және бұлттық синхронизация платформасы[span_0](start_span)[span_0](end_span).</p>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектептерге арналған заманауи, қатал әрі сенімді электронды журнал, бағалау, қатысу және бұлттық синхронизация платформасы[span_1](start_span)[span_1](end_span).</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
                     <div class="w-8 h-8 rounded bg-indigo-50 text-indigo-700 flex items-center justify-center font-black text-xs">02</div>
                     <h3 class="text-xs font-extrabold text-slate-900 uppercase">Оқушы және ата-ана мүмкіндігі</h3>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">Бағаларды, қатысуды бақылау, BilimTest тапсыру, BilimID картасын қолдану және табельдерге қол қою[span_1](start_span)[span_1](end_span).</p>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Бағаларды, қатысуды бақылау, BilimTest тапсыру, BilimID картасын қолдану және табельдерге қол қою[span_2](start_span)[span_2](end_span).</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
                     <div class="w-8 h-8 rounded bg-emerald-50 text-emerald-700 flex items-center justify-center font-black text-xs">03</div>
                     <h3 class="text-xs font-extrabold text-slate-900 uppercase">Мұғалім мүмкіндігі</h3>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">Электронды журнал толтыру, сынып ашу (DCA код), BilimTest құру, CheckID камера арқылы тексеру және қатысуды бақылау[span_2](start_span)[span_2](end_span).</p>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Электронды журнал толтыру, сынып ашу (DCA код), BilimTest құру, CheckID камера арқылы тексеру және қатысуды бақылау[span_3](start_span)[span_3](end_span).</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 space-y-2">
                     <div class="w-8 h-8 rounded bg-purple-50 text-purple-700 flex items-center justify-center font-black text-xs">04</div>
                     <h3 class="text-xs font-extrabold text-slate-900 uppercase">Бас әкімші мүмкіндігі</h3>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектеп мониторингі, санкциялар мен модерация, BilimSubscription мерзімдерін бекіту және Admin-GPT аналитикасы[span_3](start_span)[span_3](end_span).</p>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">Мектеп мониторингі, санкциялар мен модерация, BilimSubscription мерзімдерін бекіту және Admin-GPT аналитикасы[span_4](start_span)[span_4](end_span).</p>
                 </div>
             </div>
         </div>
@@ -231,8 +261,8 @@
     </div>
 
     <footer class="bg-white py-3 px-6 border-t border-slate-200 text-[11px] text-slate-500 flex justify-between items-center">
-        <span id="footer-text" class="font-bold text-slate-700">BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_4](start_span)[span_4](end_span).</span>
-        <span class="text-emerald-600 font-bold flex items-center gap-1">● Бұлттық база қосылған[span_5](start_span)[span_5](end_span)</span>
+        <span id="footer-text" class="font-bold text-slate-700">BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_5](start_span)[span_5](end_span).</span>
+        <span class="text-emerald-600 font-bold flex items-center gap-1">● Бұлттық база қосылған[span_6](start_span)[span_6](end_span)</span>
     </footer>
 
     <script>
@@ -293,6 +323,36 @@
         let tempQuestions = [];
         let html5QrScanner = null;
 
+        let iosToastTimer = null;
+        function showIosToast(success, title, desc) {
+            const container = document.getElementById('ios-toast-container');
+            const box = document.getElementById('ios-toast-box');
+            const icon = document.getElementById('ios-toast-icon');
+            const titleElem = document.getElementById('ios-toast-title');
+            const descElem = document.getElementById('ios-toast-desc');
+
+            if (iosToastTimer) clearTimeout(iosToastTimer);
+
+            if (success) {
+                box.className = "flex items-center gap-3 p-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border border-emerald-500/30 bg-emerald-950/90 text-white text-xs font-semibold";
+                icon.className = "w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0";
+                icon.innerHTML = "✓";
+                titleElem.innerText = title || "Сәтті!";
+            } else {
+                box.className = "flex items-center gap-3 p-3.5 rounded-2xl shadow-2xl backdrop-blur-xl border border-red-500/30 bg-red-950/90 text-white text-xs font-semibold";
+                icon.className = "w-7 h-7 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm shrink-0";
+                icon.innerHTML = "✕";
+                titleElem.innerText = title || "Сәтсіз!";
+            }
+
+            descElem.innerText = desc || "";
+            container.classList.add('show');
+
+            iosToastTimer = setTimeout(() => {
+                container.classList.remove('show');
+            }, 3500);
+        }
+
         function getCurrentFormattedDateTime() {
             let now = new Date();
             let y = now.getFullYear();
@@ -305,7 +365,7 @@
 
         const translations = {
             kk: {
-                subtitle: "Бірыңғай мектеп журналы және платформа[span_6](start_span)[span_6](end_span)",
+                subtitle: "Бірыңғай мектеп журналы және платформа[span_7](start_span)[span_7](end_span)",
                 loginTitle: "Жүйеге кіру",
                 loginSub: "BilimAL электронды журналы",
                 userLbl: "Логин",
@@ -313,7 +373,7 @@
                 loginBtn: "Кіру",
                 logoutBtn: "Шығу",
                 menuTitle: "Басқару панелі",
-                footer: "BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_7](start_span)[span_7](end_span).",
+                footer: "BilimAL Enterprise Cloud © 2026. Барлық құқықтар қорғалған[span_8](start_span)[span_8](end_span).",
                 adminMon: "📊 Мониторинг",
                 adminSanc: "🛡️ Moderations & Sanctions",
                 adminSched: "📅 Сабақ кестесі",
@@ -350,7 +410,7 @@
                 sessionsTab: "💻 Белсенді сеанстар"
             },
             ru: {
-                subtitle: "Единая школьная система и платформа[span_8](start_span)[span_8](end_span)",
+                subtitle: "Единая школьная система и платформа[span_9](start_span)[span_9](end_span)",
                 loginTitle: "Вход в систему",
                 loginSub: "Электронный журнал BilimAL",
                 userLbl: "Логин",
@@ -358,7 +418,7 @@
                 loginBtn: "Войти",
                 logoutBtn: "Выйти",
                 menuTitle: "Панель управления",
-                footer: "BilimAL Enterprise Cloud © 2026. Все права защищены[span_9](start_span)[span_9](end_span).",
+                footer: "BilimAL Enterprise Cloud © 2026. Все права защищены[span_10](start_span)[span_10](end_span).",
                 adminMon: "📊 Мониторинг",
                 adminSanc: "🛡️ Модерация и санкции",
                 adminSched: "📅 Расписание",
@@ -395,7 +455,7 @@
                 sessionsTab: "💻 Активные сеансы"
             },
             en: {
-                subtitle: "Unified School System and Platform[span_10](start_span)[span_10](end_span)",
+                subtitle: "Unified School System and Platform[span_11](start_span)[span_11](end_span)",
                 loginTitle: "Sign In",
                 loginSub: "BilimAL Electronic Journal",
                 userLbl: "Username",
@@ -403,7 +463,7 @@
                 loginBtn: "Login",
                 logoutBtn: "Logout",
                 menuTitle: "Control Panel",
-                footer: "BilimAL Enterprise Cloud © 2026. All rights reserved[span_11](start_span)[span_11](end_span).",
+                footer: "BilimAL Enterprise Cloud © 2026. All rights reserved[span_12](start_span)[span_12](end_span).",
                 adminMon: "📊 Monitoring",
                 adminSanc: "🛡️ Moderations & Sanctions",
                 adminSched: "📅 Schedule",
@@ -562,9 +622,13 @@
             let passwordInput = document.getElementById('bilimweb-confirm-password').value.trim();
             let targetUser = users.find(u => u.username === selectedUsername);
 
-            if (!targetUser) return alert('Қолданушы табылмады!');
+            if (!targetUser) {
+                showIosToast(false, "Сәтсіз!", "Қолданушы табылмады!");
+                return;
+            }
             if (targetUser.password !== passwordInput) {
-                return alert('⚠️ Қате пароль! Жүйеге кіру үшін дұрыс пароліңізді енгізіңіз.');
+                showIosToast(false, "Сәтсіз!", "Қате пароль! Жүйеге кіру үшін дұрыс пароліңізді енгізіңіз.");
+                return;
             }
 
             showSpinner("Пароль тексерілуде...");
@@ -583,15 +647,15 @@
                         timestamp: firebase.firestore.FieldValue.serverTimestamp()
                     });
                     hideSpinner();
-                    alert('✨ Сәтті расталды! Үлкен экраннан жүйені қараңыз.');
+                    showIosToast(true, "Сәтті!", "QR арқылы кіру расталды!");
                     window.location.href = window.location.pathname;
                 } catch(err) {
                     hideSpinner();
-                    alert('Қате орын алды: ' + err.message);
+                    showIosToast(false, "Сәтсіз!", "Қате орын алды: " + err.message);
                 }
             } else {
                 hideSpinner();
-                alert('Firebase қосылмаған немесе сессия қате!');
+                showIosToast(false, "Сәтсіз!", "Firebase қосылмаған немесе сессия қате!");
             }
         }
 
@@ -669,12 +733,12 @@
                     credMap[currentUser.username] = { registered: true };
                     localStorage.setItem('bilim_passkeys_map', JSON.stringify(credMap));
                     hideSpinner();
-                    alert("✨ Face ID / Touch ID сәтті тіркелді!");
+                    showIosToast(true, "Сәтті!", "Face ID / Touch ID сәтті тіркелді!");
                 }
             } catch(e) {
                 hideSpinner();
                 console.error(e);
-                alert("⚠️ Биометрияны тіркеуден бас тартылды немесе қолдау жоқ: " + e.message);
+                showIosToast(false, "Сәтсіз!", "Биометрияны тіркеуден бас тартылды: " + e.message);
             }
         }
 
@@ -690,7 +754,7 @@
                 
                 if (usernames.length === 0) {
                     hideSpinner();
-                    alert("Бұл құрылғыда тіркелген биометриялық кілт табылмады. Алдымен логин мен пароль арқылы кіріп, биометрияны қосыңыз.");
+                    showIosToast(false, "Сәтсіз!", "Бұл құрылғыда биометриялық кілт табылмады. Алдымен логинмен кіріңіз.");
                     return;
                 }
 
@@ -712,7 +776,7 @@
                     
                     if (foundUser) {
                         hideSpinner();
-                        alert("✨ Биометрия арқылы кіру сәтті өтті!");
+                        showIosToast(true, "Сәтті!", "Биометрия арқылы кіру сәтті өтті!");
                         registerAndCheckSession(foundUser);
                         return;
                     }
@@ -720,7 +784,7 @@
             } catch(e) {
                 hideSpinner();
                 console.error(e);
-                alert("⚠️ Биометриямен кіру сәтсіз аяқталды немесе бас тартылды.");
+                showIosToast(false, "Сәтсіз!", "Биометриямен кіру сәтсіз аяқталды.");
             }
             hideSpinner();
         }
@@ -746,6 +810,7 @@
             checkBanners();
             renderSidebar();
             renderTabContent();
+            showIosToast(true, "Сәтті!", "Жүйеге қош келдіңіз, " + currentUser.name + "!");
         }
 
         async function handleLogin(e) {
@@ -771,6 +836,7 @@
                 if(foundUser.status === 'blocked') {
                     errorDiv.innerText = 'Аккаунт бұғатталған!';
                     errorDiv.classList.remove('hidden');
+                    showIosToast(false, "Сәтсіз!", "Аккаунт бұғатталған!");
                     return;
                 }
                 errorDiv.classList.add('hidden');
@@ -778,6 +844,7 @@
             } else {
                 errorDiv.innerText = 'Қате логин немесе пароль!';
                 errorDiv.classList.remove('hidden');
+                showIosToast(false, "Сәтсіз!", "Қате логин немесе пароль енгізілді!");
             }
         }
 
@@ -814,6 +881,7 @@
             document.getElementById('warning-banner').classList.add('hidden');
             document.getElementById('login-username').value = '';
             document.getElementById('login-password').value = '';
+            showIosToast(true, "Сәтті!", "Жүйеден сәтті шықтыңыз.");
         }
 
         function renderSidebar() {
@@ -1259,7 +1327,7 @@
                                     <label class="block text-[10px] font-bold text-slate-500 mb-1">Тест тақырыбы:</label>
                                     <input type="text" id="test-title-input" placeholder="Мысалы: Квадрат теңдеулер тоқсандық тесті" class="w-full border rounded p-2 text-xs bg-white">
                                 </div>
-                                <button onclick="startAddingQuestions()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-bold w-full">Сұрақтар қосуға өту ➔</button>
+                                <button onclick="startAddingQuestions()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-xs font-bold w-full">Сұрақтар қосуға өту ➔</button>
                             </div>
 
                             <div id="test-questions-builder" class="p-4 bg-slate-50 border rounded-xl space-y-3 hidden">
@@ -1677,7 +1745,10 @@
             let validUntil = document.getElementById('id-valid').value.trim();
 
             let targetUser = users.find(u => u.username === username);
-            if (!targetUser) return alert('Қолданушы табылмады!');
+            if (!targetUser) {
+                showIosToast(false, "Сәтсіз!", "Қолданушы табылмады!");
+                return;
+            }
 
             showSpinner("BilimID жасалуда...");
 
@@ -1702,7 +1773,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert(`✨ ${targetUser.name} үшін BilimID сәтті сақталды! ID: ${bilimCards[username].idNumber}`);
+            showIosToast(true, "Сәтті!", `${targetUser.name} үшін BilimID картасы жасалды.`);
             renderTabContent();
         }
 
@@ -1713,7 +1784,7 @@
                 bilimCards[username].status = "ACTIVE";
                 await saveDataToCloud();
                 hideSpinner();
-                alert('BilimID мерзімі 2028 жылға дейін ұзартылды және ACTIVE мәртебесі берілді!');
+                showIosToast(true, "Сәтті!", "BilimID мерзімі 2028 жылға дейін ұзартылды!");
                 renderTabContent();
             }
         }
@@ -1724,17 +1795,22 @@
                 delete bilimCards[username];
                 await saveDataToCloud();
                 hideSpinner();
+                showIosToast(true, "Сәтті!", "BilimID картасы жойылды.");
                 renderTabContent();
             }
         }
 
         function startAddingQuestions() {
             let title = document.getElementById('test-title-input').value.trim();
-            if(!title) return alert('Тест тақырыбын енгізіңіз!');
+            if(!title) {
+                showIosToast(false, "Сәтсіз!", "Тест тақырыбын енгізіңіз!");
+                return;
+            }
             
             tempQuestions = [];
             document.getElementById('test-questions-builder').classList.remove('hidden');
             document.getElementById('current-q-num').innerText = '1';
+            showIosToast(true, "Сәтті!", "Тест басталды, сұрақтарды қосыңыз.");
         }
 
         function addQuestionCard() {
@@ -1745,7 +1821,10 @@
             let opt3 = document.getElementById('opt_3').value.trim();
             let correctIdx = parseInt(document.querySelector('input[name="correct_opt"]:checked').value);
 
-            if(!qText || !opt0 || !opt1) return alert('Сұрақ пен кемінде 2 нұсқаны толтырыңыз!');
+            if(!qText || !opt0 || !opt1) {
+                showIosToast(false, "Сәтсіз!", "Сұрақ пен кемінде 2 нұсқаны толтырыңыз!");
+                return;
+            }
 
             tempQuestions.push({
                 q: qText,
@@ -1759,7 +1838,7 @@
             document.getElementById('opt_2').value = '';
             document.getElementById('opt_3').value = '';
             document.getElementById('current-q-num').innerText = tempQuestions.length + 1;
-            alert(`Сұрақ №${tempQuestions.length} сақталды! Әрі қарай қосыңыз немесе «Жариялау» батырмасын басыңыз.`);
+            showIosToast(true, "Сәтті!", `№${tempQuestions.length} сұрақ сақталды!`);
         }
 
         async function publishBilimTest() {
@@ -1768,7 +1847,10 @@
                 addQuestionCard();
             }
 
-            if(tempQuestions.length === 0) return alert('Кемінде 1 сұрақ қосылуы тиіс!');
+            if(tempQuestions.length === 0) {
+                showIosToast(false, "Сәтсіз!", "Кемінде 1 сұрақ қосылуы тиіс!");
+                return;
+            }
 
             showSpinner("Тест жариялануда...");
             let testId = 'test_' + Math.random().toString(36).substring(2, 9);
@@ -1785,7 +1867,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert('🚀 BilimTest сәтті жарияланды!');
+            showIosToast(true, "Сәтті!", "BilimTest сәтті жарияланды!");
             renderTabContent();
         }
 
@@ -1796,6 +1878,7 @@
                 delete testResults[testId];
                 await saveDataToCloud();
                 hideSpinner();
+                showIosToast(true, "Сәтті!", "Тест сәтті өшірілді.");
                 renderTabContent();
             }
         }
@@ -1858,7 +1941,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert(`✨ Тест аяқталды!\nСіздің көрсеткішіңіз: ${percent}%\nДұрыс сұрақтар: ${correctCount}/${test.questions.length}\nҰсынылған формативті баға: ${suggestedGrade}`);
+            showIosToast(true, "Сәтті!", `Тест аяқталды! Нәтиже: ${percent}% (${suggestedGrade} балл)`);
             renderTabContent();
         }
 
@@ -1892,11 +1975,12 @@
                     <div>Bilim ID: <code class="font-mono font-bold">${card.idNumber}</code></div>
                 `;
 
+                showIosToast(true, "Сәтті!", "BilimID сканерлеу сәтті аяқталды.");
                 if(html5QrScanner) {
                     html5QrScanner.clear();
                 }
             } catch(e) {
-                alert('Сканерленген QR код BilimID форматына сәйкес келмейді!');
+                showIosToast(false, "Сәтсіз!", "QR код BilimID форматына сәйкес келмейді!");
             }
         }
 
@@ -1940,14 +2024,18 @@
             let startVal = document.getElementById('sub-start-datetime').value;
             let endVal = document.getElementById('sub-end-datetime').value;
 
-            if(!startVal || !endVal) return alert('Басталу және аяқталу уақытын толық енгізіңіз!');
+            if(!startVal || !endVal) {
+                hideSpinner();
+                showIosToast(false, "Сәтсіз!", "Басталу және аяқталу уақытын толық енгізіңіз!");
+                return;
+            }
 
             subscriptionSettings.startDate = startVal.replace(/-/g, '/').replace('T', '-');
             subscriptionSettings.endDate = endVal.replace(/-/g, '/').replace('T', '-');
 
             await saveDataToCloud();
             hideSpinner();
-            alert('✨ Табельге қол қою уақыт терезесі сәтті бекітілді!');
+            showIosToast(true, "Сәтті!", "Табельге қол қою уақыт терезесі бекітілді!");
             renderTabContent();
         }
 
@@ -1979,7 +2067,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert(`✍️ Табельге ${currentStr} уақытында сәтті қол қойылды!`);
+            showIosToast(true, "Сәтті!", "Табельге қол қойылды және расталды!");
             renderTabContent();
         }
 
@@ -1989,6 +2077,7 @@
             bilimSubscriptions[username].status = status;
             await saveDataToCloud();
             hideSpinner();
+            showIosToast(true, "Сәтті!", "Мәртебе өзгертілді.");
             renderAdminSubTable();
         }
 
@@ -2001,13 +2090,13 @@
                     await saveDataToCloud();
                 }
                 hideSpinner();
-                alert('Сеанс тізімнен сәтті жойылды!');
+                showIosToast(true, "Сәтті!", "Сеанс тізімнен жойылды!");
                 renderTabContent();
             }
         }
 
         function keepSession(sessionId) {
-            alert('Сеанс сақталды. Құрылғы өз жұмысын жалғастыра береді.');
+            showIosToast(true, "Сәтті!", "Сеанс сақталды.");
         }
 
         function renderScheduleView(panelTitle, targetClassName) {
@@ -2119,6 +2208,7 @@
 
                 aiHistories[sessionKey].push({ sender: 'ai', text: reply });
                 hideSpinner();
+                showIosToast(true, "Сәтті!", "AI жауап берді.");
                 renderTabContent();
             }, 1000);
         }
@@ -2176,7 +2266,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert(`[${selectedTeacherSubject}] бағалары сәтті сақталды!`);
+            showIosToast(true, "Сәтті!", `[${selectedTeacherSubject}] бағасы сақталды!`);
             renderTabContent();
         }
 
@@ -2186,7 +2276,7 @@
                 delete grades[username][selectedTeacherSubject];
                 await saveDataToCloud();
                 hideSpinner();
-                alert(`[${selectedTeacherSubject}] пәні бойынша баға жойылды!`);
+                showIosToast(true, "Сәтті!", `[${selectedTeacherSubject}] бағасы жойылды!`);
                 renderTabContent();
             }
         }
@@ -2198,15 +2288,21 @@
             attendance[username]['today'] = status;
             await saveDataToCloud();
             hideSpinner();
-            alert('Қатысу белгісі сақталды!');
+            showIosToast(true, "Сәтті!", "Қатысу мәртебесі сақталды!");
         }
 
         async function createNewClass() {
             let className = document.getElementById('new-class-name').value.trim();
-            if(!className) return alert('Сынып атын енгізіңіз!');
+            if(!className) {
+                showIosToast(false, "Сәтсіз!", "Сынып атын енгізіңіз!");
+                return;
+            }
             
             let existing = classesList.find(c => c.teacherUsername === currentUser.username);
-            if(existing) return alert('Сізде бұрыннан ашылған сынып бар: ' + existing.name);
+            if(existing) {
+                showIosToast(false, "Сәтсіз!", "Сізде бұрыннан ашылған сынып бар: " + existing.name);
+                return;
+            }
 
             showSpinner("Сынып тіркеліп, DCA код жасалуда...");
             let randomDca = 'DCA-' + Math.floor(1000 + Math.random() * 9000);
@@ -2220,19 +2316,23 @@
             });
             await saveDataToCloud();
             hideSpinner();
-            alert(`Сынып сәтті ашылды! DCA коды: ${randomDca}`);
+            showIosToast(true, "Сәтті!", `Сынып ашылды! DCA коды: ${randomDca}`);
             renderTabContent();
         }
 
         async function joinClassByDCA() {
             let code = document.getElementById('dca-code-input').value.trim().toUpperCase();
-            if(!code) return alert('DCA кодын енгізіңіз!');
+            if(!code) {
+                showIosToast(false, "Сәтсіз!", "DCA кодын енгізіңіз!");
+                return;
+            }
 
             showSpinner("Сыныпқа қосылу...");
             let targetClass = classesList.find(c => c.dcaCode === code);
             if(!targetClass) {
                 hideSpinner();
-                return alert('Қате DCA коды! Мұғалімнен дұрыс кодты сұраңыз.');
+                showIosToast(false, "Сәтсіз!", "Қате DCA коды! Мұғалімнен дұрыс кодты сұраңыз.");
+                return;
             }
 
             classesList.forEach(c => {
@@ -2248,7 +2348,7 @@
 
             await saveDataToCloud();
             hideSpinner();
-            alert(`Сәтті қосылдыңыз! Сынып: ${targetClass.name}`);
+            showIosToast(true, "Сәтті!", `Сыныпқа қосылдыңыз: ${targetClass.name}`);
             switchTab('student_grades');
         }
 
@@ -2257,12 +2357,15 @@
             let day = document.getElementById('sched-day').value;
             let subject = document.getElementById('sched-subject').value;
             let time = document.getElementById('sched-time').value.trim();
-            if(!className || !time) return alert('Барлық өрістерді толтырыңыз!');
+            if(!className || !time) {
+                showIosToast(false, "Сәтсіз!", "Барлық өрістерді толтырыңыз!");
+                return;
+            }
             showSpinner("Кесте бекітілуде...");
             schedules.push({ className, day, subject, time });
             await saveDataToCloud();
             hideSpinner();
-            alert('Сабақ кестесі сыныпқа бекітілді!');
+            showIosToast(true, "Сәтті!", "Сабақ кестесі бекітілді!");
             renderTabContent();
         }
 
@@ -2272,6 +2375,7 @@
                 schedules.splice(sIdx, 1);
                 await saveDataToCloud();
                 hideSpinner();
+                showIosToast(true, "Сәтті!", "Кесте жойылды.");
                 renderTabContent();
             }
         }
@@ -2283,13 +2387,16 @@
             ktpList.push(ktpText);
             await saveDataToCloud();
             hideSpinner();
-            alert('КТЖ қосылды!');
+            showIosToast(true, "Сәтті!", "КТЖ жазбасы қосылды!");
             renderTabContent();
         }
 
         async function sendSupportMessage() {
             let msg = document.getElementById('support-msg')?.value || document.getElementById('stud-support-msg')?.value;
-            if(!msg) return alert('Хабарлама бос болмауы тиіс!');
+            if(!msg) {
+                showIosToast(false, "Сәтсіз!", "Хабарлама бос болмауы тиіс!");
+                return;
+            }
 
             showSpinner("Smart Security текселуде...");
             let lowerMsg = msg.toLowerCase();
@@ -2306,25 +2413,25 @@
                 await saveDataToCloud();
                 hideSpinner();
                 checkBanners();
-                alert('🚨 Назар аударыңыз! Жүйенің Smart Security мониторингі дөрекі/боғауыз сөзді анықтады. Сізге ескерту берілді!');
+                showIosToast(false, "Сәтсіз!", "Smart Security дөрекі сөзді анықтады. Ескерту берілді!");
                 return;
             }
 
             supportTickets.push({ from: currentUser.username, text: msg, reply: '', flagged: false });
             await saveDataToCloud();
             hideSpinner();
-            alert('Қолдау қызметіне хат сәтті жіберілді!');
+            showIosToast(true, "Сәтті!", "Қолдау қызметіне хат жіберілді!");
             renderTabContent();
         }
 
         async function replyTicket(idx) {
             let replyText = document.getElementById(`reply_${idx}`).value.trim();
             if(!replyText) return;
-            showSpinner("Жауап жіберілуде...");
+            showSpinner("Жауап жіберу...");
             supportTickets[idx].reply = replyText;
             await saveDataToCloud();
             hideSpinner();
-            alert('Жауап қайтарылды!');
+            showIosToast(true, "Сәтті!", "Жауап қайтарылды!");
             renderTabContent();
         }
 
@@ -2335,15 +2442,24 @@
             const role = document.getElementById('reg-role').value;
             const parentOf = document.getElementById('reg-parent-of').value;
 
-            if(!name || !username || !password) return alert('Барлық өрістерді толтырыңыз!');
-            if(role === 'parent' && !parentOf) return alert('Ата-ананың баласын таңдаңыз!');
-            if(users.some(u => u.username === username)) return alert('Бұл логин бос емес!');
+            if(!name || !username || !password) {
+                showIosToast(false, "Сәтсіз!", "Барлық өрістерді толтырыңыз!");
+                return;
+            }
+            if(role === 'parent' && !parentOf) {
+                showIosToast(false, "Сәтсіз!", "Ата-ананың баласын таңдаңыз!");
+                return;
+            }
+            if(users.some(u => u.username === username)) {
+                showIosToast(false, "Сәтсіз!", "Бұл логин бос емес!");
+                return;
+            }
 
             showSpinner("Аккаунт тіркелуде...");
             users.push({ name, username, password, role, parentOf: parentOf || '', warningReason: '', status: 'active' });
             await saveDataToCloud();
             hideSpinner();
-            alert('Сәтті тіркелді!');
+            showIosToast(true, "Сәтті!", "Жаңа қолданушы тіркелді!");
             renderTabContent();
         }
 
@@ -2355,6 +2471,7 @@
                 delete bilimSubscriptions[username];
                 await saveDataToCloud();
                 hideSpinner();
+                showIosToast(true, "Сәтті!", "Қолданушы жойылды.");
                 renderTabContent();
             }
         }
@@ -2368,7 +2485,7 @@
             u.warningReason = reason;
             await saveDataToCloud();
             hideSpinner();
-            alert('Ескерту жіберілді!');
+            showIosToast(true, "Сәтті!", "Ескерту жіберілді!");
             renderTabContent();
         }
 
@@ -2379,6 +2496,7 @@
             u.status = u.status === 'blocked' ? 'active' : 'blocked';
             await saveDataToCloud();
             hideSpinner();
+            showIosToast(true, "Сәтті!", "Қолданушы мәртебесі өзгертілді.");
             renderTabContent();
         }
 
@@ -2389,7 +2507,7 @@
             await saveDataToCloud();
             hideSpinner();
             checkBanners();
-            alert('Хабарландыру сәтті жарияланды!');
+            showIosToast(true, "Сәтті!", "Хабарландыру жарияланды!");
         }
 
         async function clearAnnouncement() {
@@ -2399,28 +2517,31 @@
             hideSpinner();
             checkBanners();
             document.getElementById('announcement-input').value = '';
-            alert('Хабарландыру өшірілді!');
+            showIosToast(true, "Сәтті!", "Хабарландыру өшірілді.");
         }
 
         async function adminUpdateClassTeacher(classIdx) {
             let selectElem = document.getElementById(`admin_teacher_select_${classIdx}`);
             let newTeacherUsername = selectElem.value;
             let teacherObj = users.find(u => u.username === newTeacherUsername);
-            if(!teacherObj) return alert('Мұғалім табылмады!');
+            if(!teacherObj) {
+                showIosToast(false, "Сәтсіз!", "Мұғалім табылмады!");
+                return;
+            }
 
             showSpinner("Сынып жетекшісі өзгертілуде...");
             classesList[classIdx].teacher = teacherObj.name;
             classesList[classIdx].teacherUsername = teacherObj.username;
             await saveDataToCloud();
             hideSpinner();
-            alert(`Сынып жетекшісі сәтті өзгертілді: ${teacherObj.name}`);
+            showIosToast(true, "Сәтті!", `Сынып жетекшісі өзгертілді: ${teacherObj.name}`);
             renderTabContent();
         }
 
         async function deleteClassRecord(classIdx) {
             let targetClass = classesList[classIdx];
-            if(confirm(`"${targetClass.name}" сыныбын және оған қатысты БҮКІЛ деректерді (оқушылар, ата-аналар, барлық бағалар мен қатысу) толығымен жойғыңыз келе ме?`)) {
-                showSpinner("Сынып пен барлық байланысты деректер тазартылуда...");
+            if(confirm(`"${targetClass.name}" сыныбын және оған қатысты БҮКІЛ деректерді толығымен жойғыңыз келе ме?`)) {
+                showSpinner("Сынып пен деректер тазартылуда...");
                 
                 let studentUsernames = targetClass.students || [];
                 
@@ -2442,7 +2563,7 @@
 
                 await saveDataToCloud();
                 hideSpinner();
-                alert('Сынып пен оған қатысты барлық оқушы, ата-ана мен баға деректері сәтті жойылды!');
+                showIosToast(true, "Сәтті!", "Сынып пен барлық қатысты деректер жойылды!");
                 renderTabContent();
             }
         }
@@ -2451,14 +2572,14 @@
             let content = `BILIMAL ENTERPRISE CLOUD - OFFICIAL REPORT\nOqushy: ${currentUser.name}\nDate: ${new Date().toLocaleDateString()}\n-------------------------------------\n`;
             let myGrades = grades[currentUser.username] || {};
             for(let sub in myGrades) {
-                content += `Pan: ${sub} | Format: ${myGrgrades[sub]?.form || ''} | BZHB: ${myGrgrades[sub]?.bzhb || ''} | TZHB: ${myGrgrades[sub]?.tzhb || ''} | Payiz: ${myGrgrades[sub]?.percent || 0}% | Qorytyndy: ${myGrgrades[sub]?.final || ''}\n`;
+                content += `Pan: ${sub} | Format: ${myGrades[sub]?.form || ''} | BZHB: ${myGrades[sub]?.bzhb || ''} | TZHB: ${myGrgrades[sub]?.tzhb || ''} | Payiz: ${myGrgrades[sub]?.percent || 0}% | Qorytyndy: ${myGrgrades[sub]?.final || ''}\n`;
             }
             let blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             let link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `BilimAL_Report_${currentUser.username}.txt`;
             link.click();
-            alert('Тоқсандық есеп жүктелді!');
+            showIosToast(true, "Сәтті!", "Тоқсандық есеп файл түрінде жүктелді!");
         }
     </script>
 </body>
